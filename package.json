@@ -1,0 +1,23 @@
+{
+  "name": "olstudy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html",
+    "build": "parcel build --public-url . index.html"
+  },
+  "author": "hyejin",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  },
+  "dependencies": {
+    "colormap": "^2.3.1",
+    "jsts": "^2.0.8",
+    "ol": "^6.0.1",
+    "ol-ext": "^3.1.7",
+    "openlayers-ext": "^3.1.5"
+  }
+}

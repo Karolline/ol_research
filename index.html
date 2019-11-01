@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Using Parcel with OpenLayers</title>
+    <style>
+      #map {
+        width: 100%;
+        height: 600px;
+      }
+    </style>
+    <!-- 버퍼 -->
+    <script src="https://unpkg.com/jsts@2.0.2/dist/jsts.min.js"></script>
+
+    <!-- 차트 -->
+    <script type="text/javascript" src="https://openlayers.org/en/latest/build/ol.js"></script>
+    <script type="text/javascript" src="dist/ol-ext.js"></script>
+  </head>
+  <body>
+    <a id="fnDnd">드래그앤드롭</a> |
+    <a id="fnDraw">그리기</a> |
+    <a id="fnDownload" download="myfeature.json">다운로드</a> |
+    <a id="fnBuffer">버퍼그리기(400m)</a> |
+    <div id="map"></div>
+    <script src="./index.js"></script>
+  </body>
+</html>
