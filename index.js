@@ -1,6 +1,3 @@
-// shp -> geojson
-// https://gis.stackexchange.com/questions/177206/allowing-user-to-import-any-file-in-openlayers-3-map-control/177221
-
 import "ol/ol.css";
 import { Map, View } from "ol";
 import TileLayer from "ol/layer/Tile";
@@ -44,24 +41,27 @@ const map = new Map({
 
 map.addLayer(stamen);
 
-var source = new VectorSource();
-  var vectorlayer = new VectorLayer({
-    source: source
-  })
+var originSource = new VectorSource();
 
-document.getElementById("fnDnd").onclick = function() {
-  // var source = new VectorSource();
-  // var vectorlayer = new VectorLayer({
-  //   source: source
-  // })
+var vectorlayer = new VectorLayer({
+  source: originSource
+})
 
-  map.addInteraction(new DragAndDrop({ // DragAndDrop은 projection transform은 없어서 EPSG:4326이나 EPSG:3857만 가능
-    source: source,
-    formatConstructors: [GeoJSON]
-  }))
+var dNd = new DragAndDrop({
+  // source: source,
+  formatConstructors: [GeoJSON]
+});
 
-  map.addLayer(vectorlayer);
-}
+dNd.on('addfeatures', function(event) {
+  originSource.addFeatures(event.features);
+})
+
+map.addInteraction(dNd);
+
+map.addLayer(vectorlayer);
+
+
+
 
 document.getElementById("fnDraw").onclick = function() {
 
