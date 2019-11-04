@@ -41,10 +41,10 @@ const map = new Map({
 
 map.addLayer(stamen);
 
-var originSource = new VectorSource();
-
-var vectorlayer = new VectorLayer({
-  source: originSource
+// 드래그앤드롭 시작
+var dndSource = new VectorSource();
+var dndLayer = new VectorLayer({
+  source: dndSource
 })
 
 var dNd = new DragAndDrop({
@@ -52,52 +52,57 @@ var dNd = new DragAndDrop({
   formatConstructors: [GeoJSON]
 });
 
-dNd.on('addfeatures', function(event) {
-  originSource.addFeatures(event.features);
-})
-
 map.addInteraction(dNd);
 
-map.addLayer(vectorlayer);
+map.addLayer(dndLayer);
 
+dNd.on('addfeatures', function(event) {
+  dndSource.addFeatures(event.features);
+})
+// 드래그앤드롭 끝
 
-
+// 드로우 시작
+var drawSource = new VectorSource();
+var drawLayer = new VectorLayer({
+  source: drawSource
+});
+map.addLayer(drawLayer);
 
 document.getElementById("fnDraw").onclick = function() {
 
-  var modify = new Modify({ source: source });
+  var modify = new Modify({ source: drawSource });
   map.addInteraction(modify);
 
-  var draw;
-
-  function addInteraction() {
-    draw = new Draw({
-      source: source,
-      type: 'Point'
-    });
-
-    map.addInteraction(draw);
-  }
-
-  addInteraction();
-  map.addLayer(vectorlayer);
-
+  var draw = new Draw({
+    source: drawSource,
+    type: 'Point'
+  });
+  map.addInteraction(draw);
+  
 }
+// 드로우 끝
 
+// 다운로드 시작
 document.getElementById("fnDownload").onclick = function() {
   const format = new GeoJSON({featureProjection: "EPSG:3857"});
   const download = document.getElementById("fnDownload");
 
-  const features = source.getFeatures();
+  var downloadSource = new VectorSource();
+  downloadSource.addFeatures(dndSource.getFeatures());
+  downloadSource.addFeatures(drawSource.getFeatures());
+
+  const features = downloadSource.getFeatures();
   const json = format.writeFeatures(features);
   download.href = "data:text/json;charset=utf-8, " + json;
 }
+// 다운로드 끝
 
+// 버퍼 시작
 document.getElementById("fnBuffer").onclick = function() {
-  // var format = new GeoJSON();
-  // console.log(source);
-  // var features = format.readFeatures(source);
-  var features = source.getFeatures();
+  var allSource = new VectorSource();
+  allSource.addFeatures(dndSource.getFeatures());
+  allSource.addFeatures(drawSource.getFeatures());
+  var features = allSource.getFeatures();
   var parser = new jsts.io.OL3Parser();
   parser.inject(Point, LineString, LinearRing, Polygon, MultiPoint, MultiLineString, MultiPolygon);
 
@@ -113,13 +118,14 @@ document.getElementById("fnBuffer").onclick = function() {
     feature.setGeometry(parser.write(buffered));
   }
 
-  source.addFeature(features);
+  allSource.addFeature(features);
 
   var vectorLayer = new VectorLayer({
     source: source
   })
   map.add(vectorLayer);
 }
+// 버퍼 끝
 
 /*브이월드에서 제공되는 좌표계는
 - WGS84 경위도 : EPSG:4326
