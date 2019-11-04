@@ -9,15 +9,10 @@ import { fromLonLat } from "ol/proj";
 import GeoJSON from "ol/format/GeoJSON";
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
-import {Style, Stroke, Circle, Fill} from 'ol/style';
 
 import OSM from 'ol/source/OSM';
 import Stamen from 'ol/source/Stamen';
 import LayerGroup from 'ol/layer/Group';
-
-import {DragAndDrop, Modify, Draw, Snap} from 'ol/interaction';
-import LinearRing from 'ol/geom/LinearRing';
-import {Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon} from 'ol/geom';
   
   var baseLayer1 = new LayerGroup({
       title: 'Water color with labels',
@@ -70,23 +65,6 @@ var overlayLayer2 = new VectorLayer({
         url: '/data/population_seoul.geojson'
     })
 })
-
-// var overlayLayer2 = new LayerGroup({
-//     title: 'Census',
-//     fold: 'open',
-//     layers: [
-//         new VectorLayer({
-//             title: 'Population of Seoul',
-//             format: new GeoJSON(),
-//             url: '/data/population_seoul.geojson'
-//         }),
-//         new VectorLayer({
-//             title: 'Sido info',
-//             format: new GeoJSON(),
-//             url: '/data/sido.geojson'
-//         })
-//     ]
-// })
 
 const map = new Map({
   target: "map",
