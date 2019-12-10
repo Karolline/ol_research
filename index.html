@@ -13,7 +13,7 @@
     <script src="https://unpkg.com/jsts@2.0.2/dist/jsts.min.js"></script>
 
     <!-- 차트 -->
-    <!-- <script type="text/javascript" src="https://openlayers.org/en/latest/build/ol.js"></script> -->
+    <script type="text/javascript" src="https://openlayers.org/en/latest/build/ol.js"></script>
     <!-- <script type="text/javascript" src="dist/ol-ext.js"></script> -->
 
     <!-- shapefile.js -->
@@ -22,10 +22,16 @@
 
   </head>
   <body>
-    <a id="fnDraw">그리기</a> |
+    <!-- <a id="fnDraw">그리기</a> |
     <a id="fnDownload" download="myfeature.json">다운로드</a> |
-    <a id="fnBuffer">버퍼그리기(400m)</a> |
+    <a id="fnBuffer">버퍼그리기(400m)</a> | -->
+    <select name="layerData" id="layerData">
+      <option value="">데이터 선택</option>
+      <option value="roads-seoul">도로 데이터</option>
+      <option value="population_seoul">포인트 데이터</option>
+    </select>
+    <a id="fnAddLayer">레이어 추가</a> |
     <div id="map"></div>
-    <script src="./index.js"></script>
+    <script src="./index2.js"></script>
   </body>
 </html>

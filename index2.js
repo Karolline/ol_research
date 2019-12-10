@@ -71,13 +71,14 @@ const map = new Map({
   layers: [
       new LayerGroup({
           'title': 'Base maps',
-          layers: [baseLayer1, baseLayer2, baseLayer3]
+          // layers: [baseLayer1, baseLayer2, baseLayer3]
+          layers: [baseLayer3]
       }),
-      new LayerGroup({
-          'title': 'Overlays',
-          fold: 'open',
-          layers: [overlayLayer1, overlayLayer2]
-      })
+      // new LayerGroup({
+      //     'title': 'Overlays',
+      //     fold: 'open',
+      //     layers: [overlayLayer1, overlayLayer2]
+      // })
   ],
   view: new View({
     center: fromLonLat([127, 37.55]),
@@ -88,5 +89,24 @@ const map = new Map({
 var layerSwitcher = new ol.control.LayerSwitcher({
     tipLabl: 'Légende',
     groupSelectStyle: 'children'
-})
-map.addControl(layerSwitcher)
+});
+map.addControl(layerSwitcher);
+
+document.getElementById("fnAddLayer").onclick = function() {
+  var title = prompt("레이어 이름을 입력하세요.");
+  var s = document.getElementById("layerData");
+  var datafileName = s.options[s.selectedIndex].value;
+
+  if(title) {
+    var userLayer = new VectorLayer({
+      title: title,
+      source: new VectorSource({
+        // 임의로 고름
+        format: new GeoJSON(),
+        url: `/data/${datafileName}.geojson`
+
+      })
+    });
+    map.addLayer(userLayer);
+  }
+}
