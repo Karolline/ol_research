@@ -90,6 +90,7 @@ var layerSwitcher = new ol.control.LayerSwitcher({
     tipLabl: 'Légende',
     groupSelectStyle: 'children'
 });
+layerSwitcher.hidePanel();
 map.addControl(layerSwitcher);
 
 document.getElementById("fnAddLayer").onclick = function() {
@@ -104,9 +105,28 @@ document.getElementById("fnAddLayer").onclick = function() {
         // 임의로 고름
         format: new GeoJSON(),
         url: `/data/${datafileName}.geojson`
-
       })
     });
     map.addLayer(userLayer);
   }
+
+  // 레이어 목록 만들기
+  var layerList = document.getElementById("layerList");
+  var newList = document.createElement("li")
+
+  var newChkbox = document.createElement("input");
+  newChkbox.setAttribute("type", "checkbox");
+  newChkbox.setAttribute("checked", "true");
+  var listText = document.createTextNode(title);
+  
+  // newChkbox.append(listText);
+  newList.appendChild(newChkbox);
+  newList.appendChild(listText);
+
+  var btnDelete = document.createElement("button")
+  var btnText = document.createTextNode("x");
+  btnDelete.appendChild(btnText);
+  newList.append(btnDelete);
+
+  layerList.appendChild(newList);
 }
