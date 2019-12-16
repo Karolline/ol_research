@@ -130,3 +130,7 @@ document.getElementById("fnAddLayer").onclick = function() {
 
   layerList.appendChild(newList);
 }
+
+document.getElementById("fnTransform").onclick = function () {
+  console.log('clicked');
+}
