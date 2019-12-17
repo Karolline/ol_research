@@ -14,7 +14,7 @@ proj4.defs([
 ]);
 register(proj4);
 
-var original = [197013.490218964, 451678.787536538];
+var original = [197013.490218964, 451678.787536538]; // 서울적십자병원
 
 // console.log(transform(original, 'EPSG:5185', 'EPSG:4326')) // 124
 // console.log(transform(original, 'EPSG:5186', 'EPSG:4326')) // 126
